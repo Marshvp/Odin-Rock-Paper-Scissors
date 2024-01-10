@@ -34,38 +34,36 @@ function playRound(playerAnswer, computerAnswer) {
 
 
 
-
-
-
 function game() {
-    
-    let overall = 0;
-    
+    let computerScore = 0;
+    let playerScore = 0;
 
-    for (let i = 0; i < 5; i++) {
-        
+    while (playerScore < 3 && computerScore < 3) {
         let playerAnswer = getPlayerChoice().toLowerCase();
         let computerAnswer = getComputerChoice().toLowerCase();
 
-        if (playerAnswer != "rock" && playerAnswer != "paper"  && playerAnswer != "scissors") {
-            return "Not a valid answer"
+        if (playerAnswer !== "rock" && playerAnswer !== "paper" && playerAnswer !== "scissors") {
+            return "Not a valid answer";
         }
 
-        let result = playRound(playerAnswer, computerAnswer)
-    
-        if (result == "Win") {
+        let result = playRound(playerAnswer, computerAnswer);
+
+        if (result === "Win") {
             console.log(`You Win! ${playerAnswer} beats ${computerAnswer}`);
-            overall += 1;
-        } else if ( result === "Lose") {
-            console.log(`You Lose! ${computerAnswer} beats ${playerAnswer}`)
+            playerScore += 1;
+        } else if (result === "Lose") {
+            console.log(`You Lose! ${computerAnswer} beats ${playerAnswer}`);
+            computerScore += 1;
         } else {
             console.log("It's a Tie!");
-            i--;
         }
     }
-    return `Game over. You won ${overall} out of 5 rounds.`
-    
-    
+
+    if (playerScore === 3) {
+        return `Game over. You won the game!`;
+    } else {
+        return `Game over. Computer won the game!`;
+    }
 }
 
 console.log(game());
