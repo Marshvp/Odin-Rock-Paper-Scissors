@@ -1,3 +1,19 @@
+document.getElementById('Rock').addEventListener("click", () => oneGame("Rock"));
+document.getElementById('Paper').addEventListener("click", () => oneGame("Paper"));
+document.getElementById('Scissors').addEventListener("click", () => oneGame("Scissors"));
+
+let playerScore = 0;
+let computerScore = 0;
+
+const container = document.querySelector('.container');
+const resultul = document.createElement('ul');
+
+    container.style.border = "1px black solid"
+    
+container.appendChild(resultul)
+
+
+
 function getComputerChoice() {
     let answer = Math.floor(Math.random() * 3) + 1 
 
@@ -10,31 +26,58 @@ function getComputerChoice() {
 }
 
 
-function getPlayerChoice() {
-    let answer = prompt("Rock, Paper or Scissors");
-    return answer
+
+function oneGame(playerChoice) {
+
+    
+    
+    let computerChoice = getComputerChoice();
+    let result = playRound(playerChoice, computerChoice)
+    
+    const resultli = document.createElement('li')
+        resultli.textContent = result
+        resultul.appendChild(resultli)
+
+    if (result === "Win") {
+        playerScore++
+    } else if (result === "Lose") {
+        computerScore++
+    }
+    console.log(`player score is ${playerScore}. Computer score is ${computerScore}.`);
+
+    if (playerScore === 3 || computerScore === 3) {
+        const finalResultli = document.createElement('li');
+        finalResultli.textContent = playerScore === 3 ? "YOU WIN!" : "YOU LOSE!";
+        resultul.appendChild(finalResultli);
+    }
+
+    
+    console.log(result);
+    
 }
 
 
 
-function playRound(playerAnswer, computerAnswer) {
+function playRound(playerChoice, computerChoice) {
+    playerChoice = playerChoice.toLowerCase()
+    computerChoice = computerChoice.toLowerCase()
 
-
-    if (playerAnswer == computerAnswer){
-        return "Tie"
-    } else if ((playerAnswer == "rock" && computerAnswer == "scissors") ||
-                (playerAnswer == "paper" && computerAnswer == "rock") ||
-                (playerAnswer == "scissors" && computerAnswer == "paper")) {
-                    return "Win";
-                }
-        else {
-            return "Lose";
-        }
+   if (playerChoice == computerChoice){
+       return "Tie"
+   } else if ((playerChoice == "rock" && computerChoice == "scissors") ||
+               (playerChoice == "paper" && computerChoice == "rock") ||
+               (playerChoice == "scissors" && computerChoice == "paper")) {
+                   return "Win";
+               }
+       else {
+           return "Lose";
+       }
 };
 
 
 
-function game() {
+
+/*function game() {
     let computerScore = 0;
     let playerScore = 0;
 
@@ -64,6 +107,6 @@ function game() {
     } else {
         return `Game over. Computer won the game!`;
     }
-}
+} 
 
-console.log(game());
+console.log(game()); */
